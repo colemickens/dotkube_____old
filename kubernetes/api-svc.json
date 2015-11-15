@@ -1,0 +1,22 @@
+{
+  "apiVersion": "v1",
+  "kind": "Service",
+  "metadata": {
+    "labels": {
+      "name": "dotkube-api-service"
+    },
+    "name": "dotkube-api-service"
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": 80,
+        "targetPort": "dotkube-api-http-port",
+        "protocol": "TCP"
+      }
+    ],
+    "selector": {
+      "name": "dotkube-api"
+    }
+  }
+}

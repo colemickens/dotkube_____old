@@ -1,0 +1,49 @@
+{
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "labels": {
+      "name": "dotkube-api"
+    },
+    "name": "dotkube-api"
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "name": "dotkube-api"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "name": "dotkube-api"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "gcr.io/dotkube/api-service:latest",
+            "name": "api",
+            "ports": [
+              {
+                "name": "dotkube-api-http-port",
+                "containerPort": 9000,
+                "protocol": "TCP"
+              }
+            ]
+          },
+          {
+            "image": "gcr.io/dotkube/api-nginx:latest",
+            "name": "api",
+            "ports": [
+              {
+                "name": "dotkube-api-http-port",
+                "containerPort": 8000,
+                "protocol": "TCP"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
