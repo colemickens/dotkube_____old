@@ -7,7 +7,6 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Dotkube.Api;
-using Strathweb.TypedRouteProvider;
 
 namespace Dotkube.Tests
 {

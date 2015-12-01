@@ -22,7 +22,7 @@ RUN bash -c "\
 RUN bash -c "\
     curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh; \
     source ~/.dnx/dnvm/dnvm.sh; \
-    dnvm install latest -u -r coreclr -alias coreclr-latest ; \
+    dnvm install 1.0.0-rc2-16237 -u -r coreclr -alias coreclr-latest ; \
     dnvm alias default coreclr-latest; \
     dnvm use default; \
     echo \"source ~/.dnx/dnvm/dnvm.sh\" >> /root/.profile"

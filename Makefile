@@ -46,10 +46,10 @@ docker-devenv: docker-build-devenv
 		dotkube-dotnet-dev /bin/bash; true
 
 docker-push:
-	docker tag -f dotkube-api-service gcr.io/dotkube/api-service:latest
-	docker tag dotkube-api-nginx gcr.io/dotkube/api-nginx
-	gcloud docker push gcr.io/dotkube/api-service
-	gcloud docker push gcr.io/dotkube/api-nginx
+	docker tag -f dotkube-api-service docker.io/colemickens/dotkube-api-service:latest
+	docker tag dotkube-api-nginx docker.io/colemickens/dotkube-api-nginx:latest
+	docker push gcr.io/dotkube/api-service
+	docker push gcr.io/dotkube/api-nginx
 
 kubernetes-deploy:
 	kubectl create -f ./kubernetes/api-rc.json

@@ -24,9 +24,6 @@ namespace Dotkube.Api.Controllers
         {
             using (this.logger.BeginScopeImpl("Preparing Environment Contract"))
             {
-                // get some information about kubernetes environment
-
-
                 var environmentContract = new EnvironmentContract()
                 {
                     Hostname = this.hostname,

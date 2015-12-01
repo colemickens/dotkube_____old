@@ -5,9 +5,9 @@ using Dotkube.Contracts.V1;
 
 namespace Dotkube.Api.Controllers
 {
-    public class TestSha256Controller : BaseController
+    public class Sha256Controller : BaseController
     {
-        public TestSha256Controller(ILoggerFactory loggerFactory)
+        public Sha256Controller(ILoggerFactory loggerFactory)
             : base(loggerFactory.CreateLogger(nameof(EnvironmentController)))
         {
         }

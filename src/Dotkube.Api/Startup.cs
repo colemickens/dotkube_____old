@@ -3,33 +3,25 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Strathweb.TypedRouteProvider;
+using AspNet.Mvc.TypedRouting;
 using Dotkube.Api.Controllers;
 
 namespace Dotkube.Api
 {
     public class Startup
     {
-        public void ConfigureStaticRoutes(MvcOptions opt)
-        {
-            opt.EnableTypedRouting();
-
-            opt.GetRoute(
-                "api/v1/environment",
-                c => c.Action<EnvironmentController>(
-                    x => x.Index()));
-
-            opt.GetRoute(
-                "api/v1/sha256",
-                c => c.Action<TestSha256Controller>(
-                    x => x.Index(Param<string>.Any)));
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddMvc();
-            services.Configure<MvcOptions>(opt => ConfigureStaticRoutes(opt));
+            services.AddMvc().AddTypedRouting(routes => {
+                routes.Get("api/v1/environment", route =>
+                    route.ToAction<EnvironmentController>(c =>
+                            c.Index()));
+
+                routes.Get("api/v1/sha256", route => 
+                    route.ToAction<Sha256Controller>(c =>
+                        c.Index(Microsoft.AspNet.Builder.With.Any<string>())));
+            });
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
