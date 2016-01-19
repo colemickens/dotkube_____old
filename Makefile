@@ -5,24 +5,24 @@
 CURDIR = $(shell pwd)
 
 build-api:
-	dnu restore
-	cd src/Dotkube.Api; dnu publish --no-source
+	dotnet restore
+	cd src/Dotkube.Api
+	dotnet publish
 
 run-api:
-	dnu restore
-	cd src/Dotkube.Api; dnx kestrel
+	dotnet restore
+	cd src/Dotkube.Api;
+	dotnet kestrel
 
 test-api:
-	dnu restore
+	dotnet restore
 	cd test/Dotkube.Tests
-	dnx test
+	dontnet test
 
 docker-build-devenv:
-	sudo chmod -R +rx .
 	docker build -f ./dockerfiles/dotkube-dotnet-dev/Dockerfile -t dotkube-dotnet-dev .
 
 docker-build-api-service: docker-build-devenv
-	sudo chmod -R +rx .
 	docker build -f ./dockerfiles/dotkube-api-service/Dockerfile -t dotkube-api-service .
 
 docker-build-api-nginx:

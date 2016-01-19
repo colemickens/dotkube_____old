@@ -1,30 +1,38 @@
-FROM ubuntu:15.04
+FROM buildpack-deps:trusty-scm
 
 ENV HOME /root
 
-RUN bash -c "\
-    apt-get update && \
-    apt-get -qqy install \
-        vim unzip procps git libunwind8 libssl-dev libcurl4-openssl-dev \
-        build-essential libtool autoconf automake libtool gettext \
-        libcurl3-dev zlib1g libicu-dev libicu52 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
+ENV DOTNET_PACKAGE_NAME "dotnet-nightly"
+ENV DOTNET_PACKAGE_VERSION "1.0.0.000980-1"
+
+ADD vendor/dotnet-nightly/${DOTNET_PACKAGE_NAME}_${DOTNET_PACKAGE_VERSION}_amd64.deb /opt/dotnet/
 
 RUN bash -c "\
-    git clone https://github.com/libuv/libuv /tmp/libuv && \
-    cd /tmp/libuv && \
-    git checkout v1.7.5 && \
-    sh autogen.sh && ./configure && make && make install && \
-    rm -rf /usr/local/src/libuv-v1.7.5 && \
-    rm -rf /tmp/libuv && \
-    ldconfig"
+	apt-get -y update; \
+	dpkg -i --force-depends /opt/dotnet/${DOTNET_PACKAGE_NAME}_${DOTNET_PACKAGE_VERSION}_amd64.deb; \
+	apt-get install -y -f; \
+	apt-get install -y git make automake libtool; \
+	apt-get clean; \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
 
+ENV LIBUV_VERSION "1.8.0"
 RUN bash -c "\
-    curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh; \
-    source ~/.dnx/dnvm/dnvm.sh; \
-    dnvm install 1.0.0-rc2-16237 -u -r coreclr -alias coreclr-latest ; \
-    dnvm alias default coreclr-latest; \
-    dnvm use default; \
-    echo \"source ~/.dnx/dnvm/dnvm.sh\" >> /root/.profile"
+	git clone https://github.com/libuv/libuv /tmp/libuv && \
+	cd /tmp/libuv && \
+	git checkout v${LIBUV_VERSION} && \
+	sh autogen.sh && ./configure && make && make install && \
+	rm -rf /usr/local/src/libuv-v${LIBUV_VERSION} && \
+	rm -rf /tmp/libuv && \
+	ldconfig"
 
-EXPOSE 8000
+
+
+
+
+# marking this out until apt is more reliable and/or dotnet-nightly is more stable
+	#RUN bash -c "\
+	#	echo \"deb [arch=amd64] http://apt-mo.trafficmanager.net/repos/dotnet/ trusty main\" > /etc/apt/sources.list.d/dotnetdev.list; \
+	#	apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893; \
+	#	apt-get -y update; \
+	#	apt-get -y install git make automake libtool ${DOTNET_PACKAGE_NAME}=${DOTNET_PACKAGE_VERSION}; \
+	#	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"

@@ -19,23 +19,13 @@
         "Microsoft.Dnx.Runtime": "1.0.0-rc2-*",
         "Microsoft.Dnx.Runtime.Internals": "1.0.0-rc2-*",
         "Microsoft.Dnx.Runtime.Sources": "1.0.0-rc2-*",
-        "Newtonsoft.Json": "7.0.1",
-        "AspNet.Mvc.TypedRouting": "1.0.2-rc1-final"
-    },
-    "commands": {
-        "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://0.0.0.0:8000"
+        "Newtonsoft.Json": "7.0.1"
     },
     "compilationOptions": {
-        "compilationOptions": {
-            "languageVersion": "experimental",
-            "warningsAsErrors": "true"
-        }
+        "emitEntryPoint": true,
+        "warningsAsErrors": true
     },
     "frameworks": {
-        "dnxcore50": {
-            "dependencies": {
-                "System.Runtime": "4.0.21-rc2-*"
-            }
-        }
+        "dnxcore50": { }
     }
 }

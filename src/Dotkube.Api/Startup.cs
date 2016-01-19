@@ -13,7 +13,8 @@ namespace Dotkube.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddMvc().AddTypedRouting(routes => {
+            servics.AddMvc();
+            /*services.AddMvc().AddTypedRouting(routes => {
                 routes.Get("api/v1/environment", route =>
                     route.ToAction<EnvironmentController>(c =>
                             c.Index()));
@@ -21,7 +22,7 @@ namespace Dotkube.Api
                 routes.Get("api/v1/sha256", route => 
                     route.ToAction<Sha256Controller>(c =>
                         c.Index(Microsoft.AspNet.Builder.With.Any<string>())));
-            });
+            });*/
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)

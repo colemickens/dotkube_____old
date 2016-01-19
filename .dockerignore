@@ -1,1 +1,2 @@
-bin/
+src/Dotkube.Api/bin
+src/Dotkube.Api/obj
