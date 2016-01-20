@@ -3,7 +3,7 @@ FROM buildpack-deps:trusty-scm
 ENV HOME /root
 
 ENV DOTNET_PACKAGE_NAME "dotnet-nightly"
-ENV DOTNET_PACKAGE_VERSION "1.0.0.000980-1"
+ENV DOTNET_PACKAGE_VERSION "1.0.0.000992-1"
 
 ADD vendor/dotnet-nightly/${DOTNET_PACKAGE_NAME}_${DOTNET_PACKAGE_VERSION}_amd64.deb /opt/dotnet/
 

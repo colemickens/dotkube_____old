@@ -1,5 +1,5 @@
 using System;
-using Microsoft.Dnx.Host;
+//using Microsoft.Dnx.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Dotkube.Contracts.V1;

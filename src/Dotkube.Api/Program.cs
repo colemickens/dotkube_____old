@@ -2,18 +2,15 @@ using System.IO;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 
-namespace Dotkube
+namespace Dotkube.Api
 {
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
-			var config = WebApplicationConfiguration.GetDefault(args);
-
-			var app = new WebApplicationBuilder()
+			var app = new WebHostBuilder()
 				.UseServer("Microsoft.AspNet.Server.Kestrel")
 				.UseApplicationBasePath(Directory.GetCurrentDirectory())
-				.UseConfiguration(config)
 				.UseStartup<Startup>()
 				.Build();
 

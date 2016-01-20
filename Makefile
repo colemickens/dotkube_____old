@@ -5,18 +5,22 @@
 CURDIR = $(shell pwd)
 
 build-api:
-	dotnet restore
-	cd src/Dotkube.Api
+	dotnet restore; \
+	cd src/Dotkube.Api; \
 	dotnet publish
 
 run-api:
+	dotnet restore; \
+	cd src/Dotkube.Api; \
+	dotnet run
+
+xrun-api:
 	dotnet restore
-	cd src/Dotkube.Api;
-	dotnet kestrel
+	(cd src/Dotkube.Api; dotnet run)
 
 test-api:
-	dotnet restore
-	cd test/Dotkube.Tests
+	dotnet restore; \
+	cd test/Dotkube.Tests; \
 	dontnet test
 
 docker-build-devenv:
@@ -30,17 +34,17 @@ docker-build-api-nginx:
 
 docker-run-api-service:
 	docker run -it \
-		-p 8000:8000 \
+		-p 5000:5000 \
 		dotkube-api-service
 
 docker-run-api-nginx:
 	docker run -it \
-		-p 9000:9000 \
+		-p 5000:5000 \
 		dotkube-api-nginx
 
 docker-devenv: docker-build-devenv
 	docker run -it \
-		-p 8000:8000 \
+		-p 5000:5000 \
 		-v $(CURDIR):/opt/dotkube \
 		-w /opt/dotkube/ \
 		dotkube-dotnet-dev /bin/bash; true

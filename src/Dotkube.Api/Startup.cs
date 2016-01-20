@@ -3,7 +3,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AspNet.Mvc.TypedRouting;
+//using AspNet.Mvc.TypedRouting;
 using Dotkube.Api.Controllers;
 
 namespace Dotkube.Api
@@ -13,7 +13,7 @@ namespace Dotkube.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            servics.AddMvc();
+            services.AddMvc();
             /*services.AddMvc().AddTypedRouting(routes => {
                 routes.Get("api/v1/environment", route =>
                     route.ToAction<EnvironmentController>(c =>
