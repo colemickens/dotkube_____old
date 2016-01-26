@@ -5,23 +5,16 @@
 CURDIR = $(shell pwd)
 
 build-api:
-	dotnet restore; \
-	cd src/Dotkube.Api; \
-	dotnet publish
+	dotnet restore
+	(cd src/Dotkube.Api; dotnet publish)
 
 run-api:
-	dotnet restore; \
-	cd src/Dotkube.Api; \
-	dotnet run
-
-xrun-api:
 	dotnet restore
 	(cd src/Dotkube.Api; dotnet run)
 
 test-api:
-	dotnet restore; \
-	cd test/Dotkube.Tests; \
-	dontnet test
+	dotnet restore
+	(cd test/Dotkube.Tests; dotnet test)
 
 docker-build-devenv:
 	docker build -f ./dockerfiles/dotkube-dotnet-dev/Dockerfile -t dotkube-dotnet-dev .

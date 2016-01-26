@@ -8,4 +8,4 @@ WORKDIR /opt/dotkube/src/Dotkube.Api/bin/output/approot
 
 CMD bash -l -c "./kestrel"
 
-EXPOSE 8000
+EXPOSE 5000
