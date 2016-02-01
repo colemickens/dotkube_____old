@@ -1,4 +1,4 @@
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Dotkube.Api.Filters;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 

@@ -1,6 +1,6 @@
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 //using AspNet.Mvc.TypedRouting;

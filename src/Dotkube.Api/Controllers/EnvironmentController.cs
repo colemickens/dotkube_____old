@@ -1,4 +1,6 @@
 using System;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 //using Microsoft.Dnx.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -17,9 +19,16 @@ namespace Dotkube.Api.Controllers
             : base(loggerFactory.CreateLogger(nameof(EnvironmentController)))
         {
             this.runtimeEnv = runtimeEnv;
-            this.hostname = "RandomHostname";
+
+            this.hostname = "";
+
+            // this causes a 500:
+            //   EntryPointNotFoundException: Unable to find an entry point named 'GetComputerName' in DLL 'libcoreclr'.
+            //   Microsoft.Win32.Win32Native.GetComputerName(StringBuilder nameBuffer, Int32& bufferSize)
+            // this.hostname = Environment.MachineName;
         }
 
+        [HttpGet("environment")]
         public EnvironmentContract Index()
         {
             using (this.logger.BeginScopeImpl("Preparing Environment Contract"))
@@ -33,6 +42,7 @@ namespace Dotkube.Api.Controllers
                     RuntimeType = this.runtimeEnv.RuntimeType,
                     RuntimeVersion = this.runtimeEnv.OperatingSystem,
                     EnvironmentVariables = Environment.GetEnvironmentVariables(),
+                    RuntimeEnvironment = this.runtimeEnv,
                 };
 
                 this.logger.LogInformation("Worked!");

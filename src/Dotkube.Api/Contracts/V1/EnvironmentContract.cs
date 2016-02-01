@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Dotkube.Contracts.V1
 {
@@ -17,5 +19,7 @@ namespace Dotkube.Contracts.V1
         public string RuntimeVersion { get; set; }
 
         public IDictionary EnvironmentVariables { get; set; }
+
+        public IRuntimeEnvironment RuntimeEnvironment { get; set; }
     }
 }

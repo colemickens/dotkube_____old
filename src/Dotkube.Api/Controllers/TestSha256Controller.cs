@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
+
 using Dotkube.Contracts.V1;
 
 namespace Dotkube.Api.Controllers
@@ -12,6 +14,7 @@ namespace Dotkube.Api.Controllers
         {
         }
 
+        [HttpGet("sha256")]
         public string Index(string input)
         {
             if (input == null) { return "no input"; }

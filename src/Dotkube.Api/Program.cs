@@ -1,6 +1,9 @@
+using System;
 using System.IO;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel;
 
 namespace Dotkube.Api
 {
@@ -8,13 +11,16 @@ namespace Dotkube.Api
 	{
 		public static void Main(string[] args)
 		{
-			var app = new WebHostBuilder()
-				.UseServer("Microsoft.AspNet.Server.Kestrel")
+			var server = typeof(KestrelServer).GetTypeInfo().Assembly.FullName;
+
+			var host = new WebHostBuilder()
+				.UseServer(server)
+				.UseUrls(new[]{ "http://0.0.0.0:5000" })
 				.UseApplicationBasePath(Directory.GetCurrentDirectory())
 				.UseStartup<Startup>()
 				.Build();
 
-			app.Run();
+			host.Run();
 		}
 	}
 }
