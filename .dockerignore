@@ -1,3 +1,4 @@
 src/Dotkube.Api/bin
 src/Dotkube.Api/obj
 .git/
+.vendor/

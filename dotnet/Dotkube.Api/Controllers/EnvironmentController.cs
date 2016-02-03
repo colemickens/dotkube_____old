@@ -28,7 +28,8 @@ namespace Dotkube.Api.Controllers
             // this.hostname = Environment.MachineName;
         }
 
-        [HttpGet("environment")]
+        //[VersionGet("api/environment", versionRange: "1")]
+        [HttpGet("api/environment")]
         public EnvironmentContract Index()
         {
             using (this.logger.BeginScopeImpl("Preparing Environment Contract"))

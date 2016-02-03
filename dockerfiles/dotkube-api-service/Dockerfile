@@ -2,10 +2,9 @@ FROM dotkube-dotnet-dev
 
 ADD . /opt/dotkube
 
-RUN bash -l -c "cd /opt/dotkube; make build-api"
+WORKDIR /opt/dotkube/
+RUN bash -c "make build-api"
 
-WORKDIR /opt/dotkube/src/Dotkube.Api/bin/output/approot
-
-CMD bash -l -c "./kestrel"
-
-EXPOSE 5000
+WORKDIR /opt/dotkube/dotnet/Dotkube.Api/bin/Release/dnxcore50/ubuntu.14.04-x64/
+#WORKDIR /opt/dotkube/dotnet/Dotkube.Api/bin/Release/dnxcore50/ubuntu.14.04-x64/
+CMD bash -c "./Dotkube.Api"
