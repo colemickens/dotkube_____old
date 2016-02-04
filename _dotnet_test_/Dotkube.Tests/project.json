@@ -1,0 +1,24 @@
+{
+    "dependencies": {
+        "NETStandard.Library": "1.0.0-rc2-*",
+        "Microsoft.AspNet.Hosting": "1.0.0-rc2-*",
+        "Microsoft.AspNet.TestHost": "1.0.0-rc2-*",
+        "Microsoft.AspNet.WebApi.Client": "5.2.3",
+        "Microsoft.Dnx.Runtime": "1.0.0-rc2-*",
+        "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc2-*",
+        "Newtonsoft.Json": "7.0.1",
+        "xunit": "2.1.0-*",
+        "xunit.runner.dnx": "2.1.0-rc2-*",
+        "dotnet-test-xunit": "1.0.0-dev-*",
+        "Dotkube.Api": ""
+    },
+    "testRunner": "xunit",
+    "compilationOptions": {
+        "compilationOptions": {
+            "warningsAsErrors": true
+        }
+    },
+    "frameworks": {
+        "dnxcore50": { }
+    }
+}
