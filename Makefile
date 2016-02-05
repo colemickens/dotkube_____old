@@ -39,6 +39,7 @@ docker-devenv: docker-build-devenv
 	docker run -it \
 		-p 0.0.0.0:5000:5000 \
 		-v $(CURDIR):/opt/dotkube \
+		-v $(CURDIR)/nuget-cache:/root/.local/share/NuGet \
 		-w /opt/dotkube/ \
 		dotkube-dotnet-dev /bin/bash; true
 

@@ -1,4 +1,6 @@
-src/Dotkube.Api/bin
-src/Dotkube.Api/obj
+dotnet/Dotkube.Api/bin
+dotnet/Dotkube.Api/obj
+dotnet/Dotkube.Tests/bin
+dotnet/Dotkube.Tests/obj
 .git/
 .vendor/

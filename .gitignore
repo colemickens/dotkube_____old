@@ -11,3 +11,4 @@ temp/
 .vs/
 
 vendor/dotnet-nightly/
+nuget-cache
