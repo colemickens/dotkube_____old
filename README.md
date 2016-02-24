@@ -21,5 +21,3 @@ Want to add:
 2. letsencrypt
 
 3. nixops definitions for a kube/az cluster
-
-4. 
