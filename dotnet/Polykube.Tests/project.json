@@ -6,7 +6,7 @@
 		"Microsoft.Extensions.PlatformAbstractions": "1.0.0-*",
 		"Newtonsoft.Json": "7.0.1",
 		"xunit.runner.aspnet": "2.0.0-aspnet-*",
-		"Dotkube.Api": ""
+		"Polykube.Api": ""
 	},
 	"commands": {
 		"test": "xunit.runner.aspnet"
