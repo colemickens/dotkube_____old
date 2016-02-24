@@ -25,7 +25,7 @@ namespace Dotkube.Api.Controllers
             // this causes a 500:
             //   EntryPointNotFoundException: Unable to find an entry point named 'GetComputerName' in DLL 'libcoreclr'.
             //   Microsoft.Win32.Win32Native.GetComputerName(StringBuilder nameBuffer, Int32& bufferSize)
-            // this.hostname = Environment.MachineName;
+            this.hostname = Environment.MachineName;
         }
 
         //[VersionGet("api/environment", versionRange: "1")]

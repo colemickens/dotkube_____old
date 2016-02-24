@@ -5,11 +5,11 @@ REPO = 'docker.io/colemickens'
 
 build:
 	dotnet restore -v Verbose
-	dotnet -v publish -c Release Polykube.Api/project.json
+	(dotnet -v publish -c Release Polykube.Api/project.json)
 
 run:
 	dotnet restore -v Verbose
-	dotnet -v run -p Polykube.Api/project.json
+	(dotnet -v run -p Polykube.Api/project.json)
 
 test:
 	dotnet restore -v Verbose
