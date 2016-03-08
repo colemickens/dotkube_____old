@@ -1,13 +1,13 @@
 using System;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Dnx.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Dotkube.Contracts.V1;
 
 namespace Dotkube.Api.Controllers
 {
+    [Route("/api/environment")]
     public class EnvironmentController : BaseController
     {
         private string hostname;
@@ -20,16 +20,11 @@ namespace Dotkube.Api.Controllers
         {
             this.runtimeEnv = runtimeEnv;
 
-            this.hostname = "";
-
-            // this causes a 500:
-            //   EntryPointNotFoundException: Unable to find an entry point named 'GetComputerName' in DLL 'libcoreclr'.
-            //   Microsoft.Win32.Win32Native.GetComputerName(StringBuilder nameBuffer, Int32& bufferSize)
             this.hostname = Environment.MachineName;
         }
 
         //[VersionGet("api/environment", versionRange: "1")]
-        [HttpGet("api/environment")]
+        [HttpGet()]
         public EnvironmentContract Index()
         {
             using (this.logger.BeginScopeImpl("Preparing Environment Contract"))

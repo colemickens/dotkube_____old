@@ -45,7 +45,7 @@ docker-devenv: docker-build-dotnet-base
 		-p 0.0.0.0:9010:9010 \
 		-v $(CURDIR):/opt/polykube \
 		-v $(CURDIR)/nuget-cache:/root/.local/share/NuGet \
-		$(REPO)/polykube-aspnet-service-builder /bin/bash; true
+		$(REPO)/polykube-dotnet-base /bin/bash; true
 
 docker-push-aspnet-service:
 	docker push $(REPO)/polykube-aspnet-service

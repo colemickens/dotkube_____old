@@ -5,7 +5,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Dotkube.Api.Controllers
 {
     [InstrumentingFilter]
-    public class BaseController : Controller
+    public class BaseController
     {
         public ILogger logger;
 

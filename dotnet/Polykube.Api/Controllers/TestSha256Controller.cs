@@ -14,7 +14,7 @@ namespace Dotkube.Api.Controllers
         {
         }
 
-        [HttpGet("sha256")]
+        [HttpGet("api/sha256")]
         public string Index(string input)
         {
             if (input == null) { return "no input"; }

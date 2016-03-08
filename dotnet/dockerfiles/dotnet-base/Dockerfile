@@ -1,7 +1,7 @@
 FROM buildpack-deps:trusty-scm
 
 ENV DOTNET_PACKAGE_NAME "dotnet-nightly"
-ENV DOTNET_PACKAGE_VERSION "1.0.1.001606-1"
+ENV DOTNET_PACKAGE_VERSION "1.0.1.001589-1"
 RUN bash -c "\
 	echo \"deb [arch=amd64] http://apt-mo.trafficmanager.net/repos/dotnet/ trusty main\" > /etc/apt/sources.list.d/dotnetdev.list && \
 	apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893 && \
