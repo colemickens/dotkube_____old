@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: aspnet-api
+  api: standard-api
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: aspnet-api
+        api: standard-api
+    spec:
+      containers:
+      - name: aspnet-api-service
+        image: colemickens/polykube-aspnet-api-service:latest
+        ports:
+        - containerPort: 8000
+      - name: aspnet-api-nginx
+        image: colemickens/polykube-aspnet-api-nginx:latest
+        ports:
+        - containerPort: 80

@@ -7,6 +7,7 @@ using Dotkube.Contracts.V1;
 
 namespace Dotkube.Api.Controllers
 {
+    [Route("/api/sha256")]
     public class Sha256Controller : BaseController
     {
         public Sha256Controller(ILoggerFactory loggerFactory)
@@ -14,7 +15,7 @@ namespace Dotkube.Api.Controllers
         {
         }
 
-        [HttpGet("api/sha256")]
+        [HttpGet()]
         public string Index(string input)
         {
             if (input == null) { return "no input"; }

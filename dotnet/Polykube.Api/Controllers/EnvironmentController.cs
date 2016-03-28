@@ -32,12 +32,6 @@ namespace Dotkube.Api.Controllers
                 var environmentContract = new EnvironmentContract()
                 {
                     Hostname = this.hostname,
-                    OperatingSystem = this.runtimeEnv.OperatingSystem,
-                    OperatingSystemVersion = this.runtimeEnv.OperatingSystemVersion,
-                    RuntimeArchitecture = this.runtimeEnv.RuntimeArchitecture,
-                    RuntimeType = this.runtimeEnv.RuntimeType,
-                    RuntimeVersion = this.runtimeEnv.OperatingSystem,
-                    EnvironmentVariables = Environment.GetEnvironmentVariables(),
                     RuntimeEnvironment = this.runtimeEnv,
                 };
 

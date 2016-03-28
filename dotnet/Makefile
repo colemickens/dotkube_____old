@@ -1,7 +1,11 @@
 .NOTPARALLEL:
 
 CURDIR = $(shell pwd)
-REPO = 'docker.io/colemickens'
+REPO = docker.io/colemickens
+IMAGE_FINAL = $(REPO)/polykube-aspnet-api-service
+IMAGE_BUILD = $(REPO)/polykube-aspnet-api-builder
+IMAGE_DEVENV = $(REPO)/polykube-aspnet-base
+IMAGE_NGINX = $(REPO)/polykube-aspnet-api-nginx
 
 build:
 	dotnet restore -v Verbose
@@ -16,36 +20,38 @@ test:
 	cd test/Polykube.Tests; dotnet -v test dotnet/Polykube.Tests/project.json
 
 tar-out:
-	tar -cf - -C ./dockerfiles/aspnet-service/ ./Dockerfile -C ./../../Polykube.Api/bin/Release/dnxcore50/ubuntu.14.04-x64/ .
+	tar -cf - -C ./dockerfiles/aspnet-api-service/ ./Dockerfile -C ./../../Polykube.Api/bin/Release/dnxcore50/ubuntu.14.04-x64/ .
 
-# TODO: remove when dotnet publish docker images
-docker-build-dotnet-base:
-	docker build -f ./dockerfiles/dotnet-base/Dockerfile -t $(REPO)/polykube-dotnet-base .
+docker-build-aspnet-base:
+	docker build -f ./dockerfiles/aspnet-base/Dockerfile -t $(IMAGE_DEVENV) .
 
-docker-build-aspnet-service-builder: docker-build-dotnet-base
+docker-build-aspnet-api-builder: docker-build-dotnet-base
 	docker build \
-		-f ./dockerfiles/aspnet-service-builder/Dockerfile \
-		-t $(REPO)/polykube-aspnet-service-builder \
+		-f ./dockerfiles/aspnet-api-builder/Dockerfile \
+		-t $(IMAGE_BUILD) \
 		.
 
-docker-build-aspnet-service: docker-build-aspnet-service-builder
-	docker run $(REPO)/polykube-aspnet-service-builder | \
+docker-build-aspnet-api-service: docker-build-aspnet-api-builder
+	docker run $(IMAGE_BUILD) | \
 		docker build \
 			-f ./Dockerfile \
-			-t $(REPO)/polykube-aspnet-service \
+			-t $(IMAGE_FINAL) \
 			-
 
-docker-run-aspnet-service:
+docker-run-aspnet-api-service:
 	docker run -it \
 		-p 0.0.0.0:9010:9010 \
-		$(REPO)/polykube-aspnet-service
+		$(IMAGE_FINAL)
 
-docker-devenv: docker-build-dotnet-base
+docker-devenv: docker-build-aspnet-base
 	docker run -it \
 		-p 0.0.0.0:9010:9010 \
 		-v $(CURDIR):/opt/polykube \
 		-v $(CURDIR)/nuget-cache:/root/.local/share/NuGet \
-		$(REPO)/polykube-dotnet-base /bin/bash; true
+		$(IMAGE_DEVENV) /bin/bash; true
 
-docker-push-aspnet-service:
-	docker push $(REPO)/polykube-aspnet-service
+docker-push-aspnet-api-service:
+	docker push $(IMAGE_FINAL)
+
+docker-push-aspnet-api-nginx:
+	docker push $(IMAGE_NGINX)

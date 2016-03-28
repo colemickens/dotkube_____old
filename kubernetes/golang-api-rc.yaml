@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: golang-api
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: golang-api
+        api: standard-api
+    spec:
+      containers:
+      - name: golang-api-service
+        image: colemickens/polykube-golang-api-service:latest
+        ports:
+        - containerPort: 8000
+      - name: golang-api-nginx
+        image: colemickens/polykube-golang-api-nginx:latest
+        ports:
+        - containerPort: 80

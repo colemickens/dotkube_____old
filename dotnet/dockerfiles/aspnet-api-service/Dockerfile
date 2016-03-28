@@ -17,4 +17,4 @@ RUN bash -c "\
 
 ADD . /opt/polykube
 WORKDIR /opt/polykube/
-CMD bash -c "./Polykube.Api"
+CMD bash -c "./publish/Polykube.Api"

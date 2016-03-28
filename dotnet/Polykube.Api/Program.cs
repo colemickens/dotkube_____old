@@ -16,7 +16,7 @@ namespace Dotkube.Api
 			var host = new WebHostBuilder()
 				.UseServer(server)
 				.UseUrls(new[]{ "http://0.0.0.0:9010" })
-				.UseApplicationBasePath(Directory.GetCurrentDirectory())
+				//.UseApplicationBasePath(Directory.GetCurrentDirectory())
 				.UseStartup<Startup>()
 				.Build();
 
