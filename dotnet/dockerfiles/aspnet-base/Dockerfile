@@ -1,13 +1,13 @@
 FROM buildpack-deps:trusty-scm
 
-ENV DOTNET_PKGVER "1.0.0.1451415522-1"
+ENV DOTNET_DEV_PKG "dotnet-dev-1.0.0-beta-002111"
 RUN bash -c "\
 	echo \"deb [arch=amd64] http://apt-mo.trafficmanager.net/repos/dotnet/ trusty main\" > /etc/apt/sources.list.d/dotnetdev.list && \
 	apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893"
 
 RUN bash -c "\
 	apt-get update && \
-	apt-get install -y git make automake libtool dotnet-dev=${DOTNET_PKGVER} && \
+	apt-get install -y git make automake libtool ${DOTNET_DEV_PKG} && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
 
 ENV LIBUV_VERSION "1.8.0"

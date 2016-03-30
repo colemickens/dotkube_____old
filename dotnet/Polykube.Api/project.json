@@ -16,8 +16,7 @@
         "Microsoft.Extensions.Logging.TraceSource": "1.0.0-*",
         "Microsoft.Extensions.PlatformAbstractions": "1.0.0-*",
         "System.Runtime.Serialization.Primitives": "4.1.0-*",
-        "System.Xml.XDocument": "4.0.0-*",
-        "Nancy": "2.0.0-alpha"
+        "System.Xml.XDocument": "4.0.0-*"
     },
     "compilationOptions": {
         "emitEntryPoint": true,
