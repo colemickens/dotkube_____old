@@ -1,4 +1,4 @@
-FROM docker.io/colemickens/polykube-dotnet-base
+FROM docker.io/colemickens/polykube-aspnet-base
 
 ADD . /opt/polykube/dotnet
 WORKDIR /opt/polykube/dotnet

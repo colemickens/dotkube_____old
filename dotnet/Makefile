@@ -20,12 +20,12 @@ test:
 	cd test/Polykube.Tests; dotnet -v test dotnet/Polykube.Tests/project.json
 
 tar-out:
-	tar -cf - -C ./dockerfiles/aspnet-api-service/ ./Dockerfile -C ./../../Polykube.Api/bin/Release/dnxcore50/ubuntu.14.04-x64/ .
+	tar -cf - -C ./dockerfiles/aspnet-api-service/ ./Dockerfile -C ./../../Polykube.Api/bin/Release/netcoreapp1.0/ .
 
 docker-build-aspnet-base:
 	docker build -f ./dockerfiles/aspnet-base/Dockerfile -t $(IMAGE_DEVENV) .
 
-docker-build-aspnet-api-builder: docker-build-dotnet-base
+docker-build-aspnet-api-builder: docker-build-aspnet-base
 	docker build \
 		-f ./dockerfiles/aspnet-api-builder/Dockerfile \
 		-t $(IMAGE_BUILD) \
@@ -38,6 +38,9 @@ docker-build-aspnet-api-service: docker-build-aspnet-api-builder
 			-t $(IMAGE_FINAL) \
 			-
 
+docker-build-aspnet-api-nginx:
+	dockr build -f ./dockerfiles/aspnet-nginx/Dockerfile -t $(IMAGE_NGINX) .
+
 docker-run-aspnet-api-service:
 	docker run -it \
 		-p 0.0.0.0:9010:9010 \
@@ -47,11 +50,11 @@ docker-devenv: docker-build-aspnet-base
 	docker run -it \
 		-p 0.0.0.0:9010:9010 \
 		-v $(CURDIR):/opt/polykube \
-		-v $(CURDIR)/nuget-cache:/root/.local/share/NuGet \
+		-v $(CURDIR)/.nuget-cache:/root/.local/share/NuGet \
 		$(IMAGE_DEVENV) /bin/bash; true
 
-docker-push-aspnet-api-service:
+docker-push-aspnet-api-service: docker-build-aspnet-api-service
 	docker push $(IMAGE_FINAL)
 
-docker-push-aspnet-api-nginx:
+docker-push-aspnet-api-nginx: docker-build-aspnet-api-nginx
 	docker push $(IMAGE_NGINX)
