@@ -4,33 +4,31 @@
 
 CURDIR = $(shell pwd)
 REPO = docker.io/colemickens
-IMAGE = $(REPO)/polykube-www
-
-docker-build-www:
-	docker build -f ./dockerfiles/www-nginx/Dockerfile -t $(REPO)/polykube-www .
+PROJECTNAME=dotkube
+IMAGE_FINAL = $(REPO)/$(PROJECTNAME)-www
+IMAGE_DEVENV = $(REPO)/$(PROJECTNAME)-www-devenv
 
 docker-run-www: docker-build-www
 	docker run -it \
 		-p 0.0.0.0:9000:80 \
-		$(IMAGE)
+		$(IMAGE_FINAL)
 
 docker-build-www-service:
 	docker build \
 		-f blah
-		-t blah
+		-t $(IMAGE_FINAL)
 
-
-docker-build-www-dev:
+docker-build-www-devenv:
 	docker build \
 		-f ./dockerfiles/www-dev/Dockerfile \
-		-t $(REPO)/polykube-www-dev \
+		-t $(REPO)/$(IMAGE_DEVENV) \
 		.
 
 docker-devenv: docker-build-www-dev
 	docker run -it \
 		-p 0.0.0.0:9000:80 \
-		-v $(CURDIR):/opt/polykube \
-		$(REPO)/polykube-www-dev /bin/bash; true
+		-v $(CURDIR):/opt/$(PROJETNAME) \
+		$(IMAGE_DEVENV) /bin/bash; true
 
 docker-push-www:
-	docker push $(IMAGE)
+	docker push $(IMAGE_FINAL)

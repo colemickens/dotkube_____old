@@ -1,6 +1,6 @@
-FROM docker.io/colemickens/polykube-aspnet-base
+FROM docker.io/colemickens/dotkube-aspnet-base
 
-ADD . /opt/polykube/dotnet
-WORKDIR /opt/polykube/dotnet
+ADD . /opt/dotkube/dotnet
+WORKDIR /opt/dotkube/dotnet
 RUN make build
 CMD make -s tar-out

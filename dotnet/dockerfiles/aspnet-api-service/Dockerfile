@@ -15,6 +15,6 @@ RUN bash -c "\
 	rm -rf /tmp/libuv && \
 	ldconfig"
 
-ADD . /opt/polykube
-WORKDIR /opt/polykube/
+ADD . /opt/dotkube
+WORKDIR /opt/dotkube/
 CMD bash -c "./publish/Polykube.Api"

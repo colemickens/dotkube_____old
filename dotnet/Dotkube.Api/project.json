@@ -1,0 +1,42 @@
+{
+    "version": "0.0.1",
+    "dependencies": {
+        "NETStandard.Library": "1.5.0-*",
+        "Microsoft.AspNetCore.Cors": "1.0.0-*",
+        "Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
+        "Microsoft.AspNetCore.Hosting": "1.0.0-*",
+        "Microsoft.AspNetCore.Mvc.Core": "1.0.0-*",
+        "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0-*",
+        "Microsoft.AspNetCore.Routing": "1.0.0-*",
+        "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+        "Microsoft.EntityFrameworkCore": "1.0.0-*",
+        "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-*",
+        "Microsoft.Extensions.Configuration": "1.0.0-*",
+        "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-*",
+        "Microsoft.Extensions.DependencyInjection": "1.0.0-*",
+        "Microsoft.Extensions.Logging": "1.0.0-*",
+        "Microsoft.Extensions.Logging.Abstractions": "1.0.0-*",
+        "Microsoft.Extensions.Logging.Console": "1.0.0-*",
+        "Microsoft.Extensions.Logging.TraceSource": "1.0.0-*",
+        "Microsoft.Extensions.PlatformAbstractions": "1.0.0-*",
+        "Npgsql": "3.1.0-alpha6",
+        "EntityFramework7.Npgsql": "3.1.0-rc1-3",
+        "System.Runtime.Serialization.Primitives": "4.1.0-*"
+    },
+    "compilationOptions": {
+        "emitEntryPoint": true,
+        "preserveCompilationContext": true,
+        "warningsAsErrors": true
+    },
+    "runtimes": {
+        "ubuntu.14.04-x64": {}
+    },
+    "frameworks": {
+        "netcoreapp1.0": {
+            "imports": [
+                "dnxcore50",
+                "portable-net451+win8"
+            ]
+        }
+    }
+}

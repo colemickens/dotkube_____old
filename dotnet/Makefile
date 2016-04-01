@@ -2,25 +2,26 @@
 
 CURDIR = $(shell pwd)
 REPO = docker.io/colemickens
-IMAGE_FINAL = $(REPO)/polykube-aspnet-api-service
-IMAGE_BUILD = $(REPO)/polykube-aspnet-api-builder
-IMAGE_DEVENV = $(REPO)/polykube-aspnet-base
-IMAGE_NGINX = $(REPO)/polykube-aspnet-api-nginx
+PROJECTNAME=dotkube
+IMAGE_FINAL = $(REPO)/$(PROJECTNAME)-aspnet-api-service
+IMAGE_BUILD = $(REPO)/$(PROJECTNAME)-aspnet-api-builder
+IMAGE_DEVENV = $(REPO)/$(PROJECTNAME)-aspnet-base
+IMAGE_NGINX = $(REPO)/$(PROJECTNAME)-aspnet-api-nginx
 
 build:
 	dotnet restore -v Verbose
-	(dotnet -v publish -c Release Polykube.Api/project.json)
+	(dotnet -v publish -c Release Dotkube.Api/project.json)
 
 run:
 	dotnet restore -v Verbose
-	(dotnet -v run -p Polykube.Api/project.json)
+	(dotnet -v run -p Dotkube.Api/project.json)
 
 test:
 	dotnet restore -v Verbose
-	cd test/Polykube.Tests; dotnet -v test dotnet/Polykube.Tests/project.json
+	cd test/Dotkube.Tests; dotnet -v test dotnet/Dotkube.Tests/project.json
 
 tar-out:
-	tar -cf - -C ./dockerfiles/aspnet-api-service/ ./Dockerfile -C ./../../Polykube.Api/bin/Release/netcoreapp1.0/ .
+	tar -cf - -C ./dockerfiles/aspnet-api-service/ ./Dockerfile -C ./../../Dotkube.Api/bin/Release/netcoreapp1.0/ubuntu.14.04-x64 .
 
 docker-build-aspnet-base:
 	docker build -f ./dockerfiles/aspnet-base/Dockerfile -t $(IMAGE_DEVENV) .
@@ -43,13 +44,13 @@ docker-build-aspnet-api-nginx:
 
 docker-run-aspnet-api-service:
 	docker run -it \
-		-p 0.0.0.0:9010:9010 \
+		-p 0.0.0.0:8000:8000 \
 		$(IMAGE_FINAL)
 
 docker-devenv: docker-build-aspnet-base
 	docker run -it \
-		-p 0.0.0.0:9010:9010 \
-		-v $(CURDIR):/opt/polykube \
+		-p 0.0.0.0:8000:8000 \
+		-v $(CURDIR):/opt/$(PROJECTNAME) \
 		-v $(CURDIR)/.nuget-cache:/root/.local/share/NuGet \
 		$(IMAGE_DEVENV) /bin/bash; true
 

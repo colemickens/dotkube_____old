@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: aspnet-api
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: aspnet-api
+    spec:
+      containers:
+      - name: aspnet-api-service
+        image: colemickens/dotkube-aspnet-api-service:latest
+        ports:
+        - containerPort: 8000
+      - name: aspnet-nginx
+        image: colemickens/dotkube-aspnet-nginx:latest
+        env:
+          - name: LISTEN_PORT
+            value: 80
+          - name: PROXY_ADDRESS
+            value: 'http://0.0.0.0:8000'
+        ports:
+        - containerPort: 80

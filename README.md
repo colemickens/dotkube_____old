@@ -1,23 +1,61 @@
-# polykube
+# dotkube
 
-A smattering of experiments including:
+Kubernetes + Azure + AspNetCore
 
-1. Kubernetes deployable services including:
 
-2. A small Rust service (RUSTful, links)
+## Kubernetes features
 
-3. A small Go service built with goa (right now it's just goa-cellar)
+0. Basics
 
-4. A "small" aspnet5 service
+   Uses ReplicationControllers, Pods, Services.
+   Eventually will use Deployments when the Dashboard supports it.
+   (Makes for a slightly more interesting demo to show the Dashboard.)
 
-5. All in minimal containers
+1. Secrets
 
-7. A minimal static ui that requires as little frontend (build/javascript) mess as possible.
+   Uses a secret to hold Azure Storage connection secrets for the internal Docker registry.
+   Uses a secret to hold another secret used by [redacted].
 
-Want to add:
+2. ~~Deployments~~
 
-1. grpc
+   Not yet, waiting on Dashboard support for Deployments/ReplicaSets
 
-2. letsencrypt
+3. Service Discovery
 
-3. nixops definitions for a kube/az cluster
+   Uses the DNS addon (SkyDNS) to resolve services at runtime in cluster.
+   (The dotnet api literally connects to "db" as the hostname.)
+
+
+## Azure features
+
+0. Docker registry backed by Azure Storage
+
+   All of the component Docker containers are pushed to a registry self-hosted in Kubernetes.
+   This registry is backed by Azure Blob Storage.
+
+1. Database Persistent Storage backed by Azure File Service
+
+   The database storage is a volume backed by the Azure File Service.
+
+2. ~~Native cloudprovider support (TCP LB only, for now)~~
+
+   Not yet. Soon hopefully...
+
+
+## AspNetCore features
+
+1. CoreCLR on Linux. 'Nuff said.
+
+2. AspNetCore on Linux. Woot.
+
+
+## [redacted] features
+
+1. :o
+
+
+## Future features
+
+1. Helper pod to create Azure DNS records to correspond to Kube services.
+
+2. LetsEncrypt helper that uses Azure DNS to get LE certs.

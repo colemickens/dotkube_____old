@@ -12,3 +12,5 @@ temp/
 
 vendor/dotnet-nightly/
 .nuget-cache
+
+mssqldb/
