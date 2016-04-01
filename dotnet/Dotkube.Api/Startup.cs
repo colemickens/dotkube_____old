@@ -15,10 +15,9 @@ namespace Dotkube.Api
 {
     public class Startup
     {
-        private const bool useMssql = true;
-
         public void ConfigureServices(IServiceCollection services)
         {
+            var useMssql = (DateTime.Now > new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
             if (useMssql)
             {
                 var server = "mssqldb";
@@ -35,6 +34,7 @@ namespace Dotkube.Api
                 server = "172.17.0.1";
                 var database = "dotkubedb";
                 var user = "postgres";
+                var password = "password"; // read from secret in container, or "default" otherwise
                 var connectionString = $"server={server};user id={user};password={password};database={database}";
                 //services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
             }
