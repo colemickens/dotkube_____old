@@ -1,4 +1,4 @@
-FROM buildpack-deps:trusty-scm
+FROM docker.io/buildpack-deps:trusty-scm
 
 RUN bash -c "\
 	echo \"deb [arch=amd64] http://apt-mo.trafficmanager.net/repos/dotnet/ trusty main\" > /etc/apt/sources.list.d/dotnetdev.list && \
@@ -18,9 +18,10 @@ RUN bash -c "\
 	rm -rf /tmp/libuv && \
 	ldconfig"
 
-#ENV DOTNET_DEV_PKG "dotnet-dev-1.0.0-beta-002192"
-ENV DOTNET_DEV_PKG "dotnet-dev-1.0.0-beta-002177"
+ENV DOTNET_VER "1.0.0-beta-002202"
+ENV DOTNET_DEV_PKG "dotnet-dev-${DOTNET_VER}"
+ENV DOTNET_HOST_PKG "dotnet-host=${DOTNET_VER}-1"
 RUN bash -c "\
 	apt-get update; apt-get upgrade -qqy && \
-	apt-get install -qqy ${DOTNET_DEV_PKG} && \
+	apt-get install -qqy ${DOTNET_DEV_PKG} ${DOTNET_HOST_PKG} && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"

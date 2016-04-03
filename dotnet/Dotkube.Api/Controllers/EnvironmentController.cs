@@ -26,7 +26,7 @@ namespace Dotkube.Api.Controllers
         [HttpGet()]
         public EnvironmentContract Index()
         {
-            using (this.logger.BeginScopeImpl("GET EnvironmentContract"))
+            using (this.logger.BeginScope("GET EnvironmentContract"))
             {
                 var environmentContract = new EnvironmentContract()
                 {

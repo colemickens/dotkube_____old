@@ -8,6 +8,10 @@ namespace Dotkube.Api.Contracts.V1
     {
         public long Id { get; set; }
 
+        public string Title { get; set; }
+
+        public string Author { get; set; }
+
         public DateTime Timestamp { get; set; }
 
         public string Message { get; set; }

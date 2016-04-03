@@ -17,6 +17,7 @@ namespace Dotkube.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            // nasty, avoids dead code warning though
             var useMssql = (DateTime.Now > new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
             if (useMssql)
             {
@@ -40,8 +41,7 @@ namespace Dotkube.Api
             }
             services
                 .AddMvcCore()
-                .AddJsonFormatters()
-                .AddControllersAsServices(typeof(Startup).GetTypeInfo().Assembly);
+                .AddJsonFormatters();
 
             services.AddCors();
         }
@@ -52,9 +52,8 @@ namespace Dotkube.Api
             configBuilder.AddEnvironmentVariables();
             var config = configBuilder.Build();
 
-            Console.WriteLine("before <<<<<<<<<<<<<<<<<<<<");
             initDatabase(dataContext);
-            Console.WriteLine("after  >>>>>>>>>>>>>>>>>>>>");
+            Console.WriteLine("init db done");
 
             loggerFactory.AddConsole();
 

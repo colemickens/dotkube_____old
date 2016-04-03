@@ -17,5 +17,6 @@ namespace Dotkube.Api.DataAccess
         }
 
         public DbSet<Counter> Counters { get; set; }
+        public DbSet<GuestbookEntry> GuestbookEntries { get; set; }
     }
 }

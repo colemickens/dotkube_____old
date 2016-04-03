@@ -1,4 +1,6 @@
-Polykube.Api/bin
-Polykube.Api/obj
-Polykube.Tests/bin
-Polykube.Tests/obj
+Dotkube.Api/bin
+Dotkube.Api/obj
+Dotkube.Tests/bin
+Dotkube.Tests/obj
+Dotkube.Api/core
+Dotkube.Tests/core

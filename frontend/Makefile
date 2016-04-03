@@ -10,7 +10,7 @@ IMAGE_DEVENV = $(REPO)/$(PROJECTNAME)-www-devenv
 
 docker-run-www: docker-build-www
 	docker run -it \
-		-p 0.0.0.0:9000:80 \
+		-p 0.0.0.0:8000:8000 \
 		$(IMAGE_FINAL)
 
 docker-build-www-service:
@@ -21,13 +21,13 @@ docker-build-www-service:
 docker-build-www-devenv:
 	docker build \
 		-f ./dockerfiles/www-dev/Dockerfile \
-		-t $(REPO)/$(IMAGE_DEVENV) \
+		-t $(IMAGE_DEVENV) \
 		.
 
-docker-devenv: docker-build-www-dev
+docker-devenv: docker-build-www-devenv
 	docker run -it \
-		-p 0.0.0.0:9000:80 \
-		-v $(CURDIR):/opt/$(PROJETNAME) \
+		-p 0.0.0.0:3000:3000 \
+		-v $(CURDIR):/opt/$(PROJECTNAME) \
 		$(IMAGE_DEVENV) /bin/bash; true
 
 docker-push-www:

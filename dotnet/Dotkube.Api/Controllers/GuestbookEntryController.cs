@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,6 +16,7 @@ namespace Dotkube.Api.Controllers
     [Route("/api/guestbookentry")]
     public class GuestbookEntryController : BaseController
     {
+        //[FromServices]
         private DataContext dataContext;
 
         public GuestbookEntryController(ILoggerFactory loggerFactory, DataContext dataContext)
@@ -23,13 +26,31 @@ namespace Dotkube.Api.Controllers
         }
 
         [HttpGet()]
-        public GuestbookEntryContract[] List() {
-            return new GuestbookEntryContract[]{};
+        public async Task<List<GuestbookEntryContract>> List() {
+            var dbEntries = this.dataContext.GuestbookEntries
+                .OrderBy(e => e.Timestamp);
+
+            var entries = await dbEntries.Select(e => new GuestbookEntryContract{
+                Title = e.Title,
+                Author = e.Author,
+                Message = e.Message,
+                Timestamp = e.Timestamp,
+            }).ToListAsync();;
+
+            return entries;
         }
 
-        [HttpGet()]
+        [HttpGet("{id}")]
         public GuestbookEntryContract Get(string id) {
             return null;
+        }
+
+        [HttpPost]
+        public void Post(
+            [FromBody]
+            GuestbookEntryContract entry)
+        {
+
         }
     }
 }
