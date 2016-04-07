@@ -11,12 +11,7 @@ namespace Dotkube.Api.DataAccess
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Counter>().Property(x => x.Id).ValueGeneratedNever();
-        }
-
-        public DbSet<Counter> Counters { get; set; }
+        public DbSet<CounterModel> Counters { get; set; }
         public DbSet<GuestbookEntry> GuestbookEntries { get; set; }
     }
 }

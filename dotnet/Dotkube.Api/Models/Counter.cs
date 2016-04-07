@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Dotkube.Api.Models
 {
-    public class Counter
+    public class CounterModel
     {
         [Key]
         public int Id { get; set; }

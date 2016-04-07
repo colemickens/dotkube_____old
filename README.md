@@ -14,7 +14,7 @@ Kubernetes + Azure + AspNetCore
 1. Secrets
 
    Uses a secret to hold Azure Storage connection secrets for the internal Docker registry.
-   Uses a secret to hold another secret used by [redacted].
+   Uses a secret to hold another secret used as the login password for the database.
 
 2. ~~Deployments~~
 
@@ -33,11 +33,7 @@ Kubernetes + Azure + AspNetCore
    All of the component Docker containers are pushed to a registry self-hosted in Kubernetes.
    This registry is backed by Azure Blob Storage.
 
-1. Database Persistent Storage backed by Azure File Service
-
-   The database storage is a volume backed by the Azure File Service.
-
-2. ~~Native cloudprovider support (TCP LB only, for now)~~
+1. ~~Native cloudprovider support (TCP LB only, for now)~~
 
    Not yet. Soon hopefully...
 
@@ -47,15 +43,3 @@ Kubernetes + Azure + AspNetCore
 1. CoreCLR on Linux. 'Nuff said.
 
 2. AspNetCore on Linux. Woot.
-
-
-## [redacted] features
-
-1. :o
-
-
-## Future features
-
-1. Helper pod to create Azure DNS records to correspond to Kube services.
-
-2. LetsEncrypt helper that uses Azure DNS to get LE certs.

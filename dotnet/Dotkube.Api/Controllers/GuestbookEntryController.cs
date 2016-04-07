@@ -16,7 +16,6 @@ namespace Dotkube.Api.Controllers
     [Route("/api/guestbookentry")]
     public class GuestbookEntryController : BaseController
     {
-        //[FromServices]
         private DataContext dataContext;
 
         public GuestbookEntryController(ILoggerFactory loggerFactory, DataContext dataContext)
@@ -31,26 +30,31 @@ namespace Dotkube.Api.Controllers
                 .OrderBy(e => e.Timestamp);
 
             var entries = await dbEntries.Select(e => new GuestbookEntryContract{
+                Id = e.Id,
                 Title = e.Title,
                 Author = e.Author,
                 Message = e.Message,
                 Timestamp = e.Timestamp,
-            }).ToListAsync();;
+            }).ToListAsync();
 
             return entries;
         }
 
-        [HttpGet("{id}")]
-        public GuestbookEntryContract Get(string id) {
-            return null;
-        }
-
         [HttpPost]
-        public void Post(
-            [FromBody]
-            GuestbookEntryContract entry)
+        public void Post([FromBody] GuestbookEntryContract entry)
         {
+            var dbEntry = new GuestbookEntry{
+                Title = entry.Title,
+                Author = entry.Author,
+                Message = entry.Message,
+                Timestamp = DateTime.UtcNow,
+            };
 
+            this.dataContext.Add(dbEntry);
+            this.dataContext.SaveChanges();
+
+            // if I do this and make it async, I get blowups:
+            // await this.dataContext.SaveChangesAsync();
         }
     }
 }

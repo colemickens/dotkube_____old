@@ -6,7 +6,7 @@ namespace Dotkube.Api.Contracts.V1
 {
     public class GuestbookEntryContract
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
