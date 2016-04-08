@@ -18,7 +18,7 @@ RUN bash -c "\
 	rm -rf /tmp/libuv && \
 	ldconfig"
 
-ENV DOTNET_VER "1.0.0-beta-002202"
+ENV DOTNET_VER "1.0.0-beta-002288"
 ENV DOTNET_DEV_PKG "dotnet-dev-${DOTNET_VER}"
 ENV DOTNET_HOST_PKG "dotnet-host=${DOTNET_VER}-1"
 RUN bash -c "\
