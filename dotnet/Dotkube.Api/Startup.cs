@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using Dotkube.Api.Controllers;
 using Dotkube.Api.DataAccess;
@@ -18,17 +19,21 @@ namespace Dotkube.Api
     {
         // TODO: How to consume the Configuration? Inject with IOptions<DotkubeOptions>
         // but how to consume it now before I can use the injection?
-
         public void ConfigureServices(IServiceCollection services)
         {
+            Console.WriteLine("Directory.GetCurrentDirectory() = ", Directory.GetCurrentDirectory());
+            //Console.WriteLine("Environment.CurrentDirectory = ", Environment.CurrentDirectory);
+
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddJsonFile("config.json");
             configBuilder.AddEnvironmentVariables();
             var config = configBuilder.Build();
 
-			// how does this handle parsing of env vars into my typed options obj
+            // how does this handle parsing of env vars into my typed options obj
             services.AddOptions();
             services.Configure<DotkubeOptions>(config);
+
+            DotkubeOptions dotkubeOptions = null; // how do I get this back from the service resolver now??
 
             services.AddTransient<IDatabase>((IServiceCollection) => configureRedis(dotkubeOptions));
             services.AddDbContext<DataContext>(options => configureDatabase(dotkubeOptions, options));
@@ -41,7 +46,7 @@ namespace Dotkube.Api
             loggerFactory.AddConsole();
 
             ensureDatabase(dataContext);
-            ensureRedis(redisDb);
+            //ensureRedis(redisDb);
 
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();

@@ -1,5 +1,8 @@
 {
     "version": "0.0.1",
+    "content": [
+        "config.json"
+    ],
     "dependencies": {
         "NETStandard.Library": "1.5.0-*",
         "Microsoft.AspNetCore.Cors": "1.0.0-*",
@@ -19,9 +22,9 @@
         "Microsoft.Extensions.Logging.Abstractions": "1.0.0-*",
         "Microsoft.Extensions.Logging.Console": "1.0.0-*",
         "Microsoft.Extensions.Logging.TraceSource": "1.0.0-*",
+        "Microsoft.Extensions.Options": "1.0.0-*",
+        "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0-*",
         "Microsoft.Extensions.PlatformAbstractions": "1.0.0-*",
-        "EntityFramework7.Npgsql": "3.1.0-rc1-3",
-        "Npgsql": "3.1.0-alpha6",
         "StackExchange.Redis": "1.1.572-alpha"
     },
     "compilationOptions": {
