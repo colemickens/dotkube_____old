@@ -17,26 +17,20 @@ namespace Dotkube.Api
 {
     public class Startup
     {
-        // TODO: How to consume the Configuration? Inject with IOptions<DotkubeOptions>
-        // but how to consume it now before I can use the injection?
+        private IConfiguration Configuration;
+
         public void ConfigureServices(IServiceCollection services)
         {
-            Console.WriteLine("Directory.GetCurrentDirectory() = ", Directory.GetCurrentDirectory());
-            //Console.WriteLine("Environment.CurrentDirectory = ", Environment.CurrentDirectory);
-
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddJsonFile("config.json");
             configBuilder.AddEnvironmentVariables();
-            var config = configBuilder.Build();
+            this.Configuration = configBuilder.Build();
 
-            // how does this handle parsing of env vars into my typed options obj
             services.AddOptions();
-            services.Configure<DotkubeOptions>(config);
+            services.Configure<DotkubeOptions>(this.Configuration);
 
-            DotkubeOptions dotkubeOptions = null; // how do I get this back from the service resolver now??
-
-            services.AddTransient<IDatabase>((IServiceCollection) => configureRedis(dotkubeOptions));
-            services.AddDbContext<DataContext>(options => configureDatabase(dotkubeOptions, options));
+            services.AddTransient<IDatabase>((IServiceCollection) => configureRedis());
+            services.AddDbContext<DataContext>(options => configureDatabase(options));
             services.AddMvcCore().AddJsonFormatters();
             services.AddCors();
         }
@@ -46,7 +40,7 @@ namespace Dotkube.Api
             loggerFactory.AddConsole();
 
             ensureDatabase(dataContext);
-            //ensureRedis(redisDb);
+            ensureRedis(redisDb);
 
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
@@ -55,28 +49,38 @@ namespace Dotkube.Api
             app.UseMvc();
         }
 
-        private DbContextOptionsBuilder configureDatabase(DotkubeOptions dotkubeOptions, DbContextOptionsBuilder options)
+        private DbContextOptionsBuilder configureDatabase(DbContextOptionsBuilder options)
         {
-            switch(dotkubeOptions.DatabaseProvider)
+            var profile = this.Configuration["database:profile"];
+            var driver = this.Configuration[$"database-{profile}:driver"];
+
+            var server = this.Configuration[$"database-{profile}:server"];
+            var port = this.Configuration[$"database-{profile}:port"];
+            var database = this.Configuration[$"database-{profile}:database"];
+            var username = this.Configuration[$"database-{profile}:username"];
+            var password = this.Configuration[$"database-{profile}:password"]; // read from secret in container, or "default" otherwise
+
+            // can I get a logger here? I'm probably wrong for wanting that too...
+            Console.WriteLine("database profile = {0}", profile);
+            Console.WriteLine("database driver = {0}", driver);
+            Console.WriteLine("database server = {0}", server);
+            Console.WriteLine("database port = {0}", port);
+            Console.WriteLine("database database = {0}", database);
+            Console.WriteLine("database username = {0}", username);
+            Console.WriteLine("database password = {0}", password);
+
+            switch(driver)
             {
                 case "mssql":
                 {
-                    var server = "mssqldb";
-                    server = "172.17.0.1";
-                    var database = "dotkubedb";
-                    var user = "sa";
-                    var password = "password"; // read from secret in container, or "default" otherwise
-                    var connectionString = $"Server={server};Database={database};User={user};Password={password};";
+                    var connectionString = $"Server={server};Database={database};User={username};Password={password};";
+                    Console.WriteLine("datbase connectionString = {0}", connectionString);
                     return options.UseSqlServer(connectionString);
                 }
                 case "pgsql":
                 {
-                    var server = "pgsql";
-                    server = "172.17.0.1";
-                    var database = "dotkubedb";
-                    var user = "postgres";
-                    var password = "password"; // read from secret in container, or "default" otherwise
-                    var connectionString = $"server={server};user id={user};password={password};database={database}";
+                    var connectionString = $"server={server};user id={username};password={password};database={database}";
+                    Console.WriteLine("datbase connectionString = {0}", connectionString);
                     throw new InvalidOperationException("npsql doesn't work yet");
                     //return options.UseNpgsql(connectionString);
                 }
@@ -87,22 +91,28 @@ namespace Dotkube.Api
             }
         }
 
-        private IDatabase configureRedis(DotkubeOptions dotkubeOptions)
+        private IDatabase configureRedis()
         {
             var connectionOutput = new StringWriter();
             try {
-                var redisServer = dotkubeOptions.RedisServer+":6379";
-                //redisServer = "azdev.mickens.io:6379";
-                //redisServer = "52.160.106.19:6379";
+                var server = this.Configuration["redis:server"];
+                var port = this.Configuration["redis:port"];
 
-                var redis = ConnectionMultiplexer.Connect(redisServer, connectionOutput);
+                var connectionString = this.Configuration["redis:server"]
+                    + ":" + this.Configuration["redis:port"];
+
+                Console.WriteLine("redis server = {0}", server);
+                Console.WriteLine("redis port = {0}", port);
+                Console.WriteLine("redis connectionString = {0}", connectionString);
+
+                var redis = ConnectionMultiplexer.Connect(connectionString, connectionOutput);
                 var db = redis.GetDatabase();
 
                 return db;
             }
             catch (Exception)
             {
-                Console.WriteLine(connectionOutput.ToString());
+                Console.Error.WriteLine(connectionOutput.ToString());
                 throw;
             }
         }

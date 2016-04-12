@@ -1,4 +1,28 @@
 {
-	"dbdriver": "memory",
-	"redisServer": "172.17.0.1"
+    "database": {
+        "profile": "memory"
+    },
+    "database-memory": {
+        "driver": "memory"
+    },
+    "database-pgsql": {
+        "driver": "pgsql",
+        "server": "172.17.0.1",
+        "port": 5432,
+        "database": "dotkubedb",
+        "username": "postgres",
+        "password": "password"
+    },
+    "database-mssql": {
+        "driver": "mssql",
+        "server": "10.0.0.99",
+        "port": 1433,
+        "database": "dotkubedb",
+        "username": "sa",
+        "password": "password"
+    },
+    "redis": {
+        "server": "172.17.0.1",
+        "port": 6379
+    }
 }
