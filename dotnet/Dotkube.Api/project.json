@@ -10,6 +10,7 @@
         "Microsoft.AspNetCore.Routing": "1.0.0-*",
         "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
         "Microsoft.EntityFrameworkCore": "1.0.0-*",
+        "Microsoft.EntityFrameworkCore.InMemory": "1.0.0-*",
         "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-*",
         "Microsoft.Extensions.Configuration": "1.0.0-*",
         "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-*",
@@ -19,8 +20,9 @@
         "Microsoft.Extensions.Logging.Console": "1.0.0-*",
         "Microsoft.Extensions.Logging.TraceSource": "1.0.0-*",
         "Microsoft.Extensions.PlatformAbstractions": "1.0.0-*",
+        "EntityFramework7.Npgsql": "3.1.0-rc1-3",
         "Npgsql": "3.1.0-alpha6",
-        "EntityFramework7.Npgsql": "3.1.0-rc1-3"
+        "StackExchange.Redis": "1.1.572-alpha"
     },
     "compilationOptions": {
         "emitEntryPoint": true,

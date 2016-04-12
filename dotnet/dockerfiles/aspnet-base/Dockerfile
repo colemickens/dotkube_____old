@@ -5,7 +5,10 @@ RUN bash -c "\
 	apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893"
 
 RUN bash -c "\
-	apt-get update; apt-get upgrade -qqy; apt-get install -qqy git make automake libtool && \
+	apt-get update; apt-get upgrade -y; apt-get install -y \
+		libc6 libstdc++6 libgcc1 clang-3.5 \
+		libcurl3 libgssapi-krb5-2 libicu52 liblldb-3.6 liblttng-ust0 libssl1.0.0 libunwind8 libuuid1 zlib1g \
+		git make automake libtool build-essential && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
 
 ENV LIBUV_VERSION "1.8.0"
@@ -18,10 +21,10 @@ RUN bash -c "\
 	rm -rf /tmp/libuv && \
 	ldconfig"
 
-ENV DOTNET_VER "1.0.0-beta-002288"
+ENV DOTNET_VER "1.0.0-rc2-002345"
 ENV DOTNET_DEV_PKG "dotnet-dev-${DOTNET_VER}"
 ENV DOTNET_HOST_PKG "dotnet-host=${DOTNET_VER}-1"
 RUN bash -c "\
-	apt-get update; apt-get upgrade -qqy && \
-	apt-get install -qqy ${DOTNET_DEV_PKG} ${DOTNET_HOST_PKG} && \
+	apt-get update; apt-get upgrade -y && \
+	apt-get install -y ${DOTNET_DEV_PKG} ${DOTNET_HOST_PKG} && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
